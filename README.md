@@ -10,20 +10,21 @@
 
 有些代码每个人都写了一百万次，每个人都有自己的方式。 Pwntools 旨在以半标准的方式提供所有这些，以便你可以停止复制粘贴相同的`struct.unpack('>I', x)`代码，而去使用更易读的包装器，例如 `pack`或者 `p32`甚至 `p64(..., endian='big', sign=True)`. 
 
-除了围绕普通功能的便利包装器之外，它还提供了一组非常丰富的 `tubes`，这些`tubes`能够将您将执行的所有 IO 包装在一个统一的界面中。使从本地漏洞利用切换到远程漏洞利用或通过 SSH 进行的本地利用这样的操作只需要更改一行代码。 
+除了围绕普通功能的便利包装器之外，它还提供了一组非常丰富的 `tubes`，这些 `tubes` 能够将你将执行的所有 IO 包装在一个统一的接口中。从而让本地漏洞利用到远程漏洞利用或通过 SSH 进行的本地利用之间的切换只需要更改一行代码。 
 
 最后但并非最不重要的一点是，它还包括用于中高级用例的各种利用辅助工具。 这些包括给定内存泄露术语的远程符号解析（ `MemLeak`和 `DynELF`）、ELF 解析和修复，以及 ROP 片段发现和调用链构建。
 
 # 目录
 
 - [安装 Pwntools](installing.md)
-- [Tubes](tubes.md)
-    + Basic Tubes
-    + Interactive Shells
-    + Processes
-    + Networking
-    + Secure Shell
-    + Serial Ports
+- [管（Tubes）](tubes.md)
+    
+    + 基本管（Tubes）
+    + 交互式Shell
+    + 进程
+    + 网络
+    + Secure Shell（SSH）
+    + 串口
 - [实用函数](utility.md)
   
     + 编码和散列（哈希）
