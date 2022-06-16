@@ -1,8 +1,8 @@
-Table of Contents
+目录
 =================
 
-  * [Context](#context)
-    * [Context Settings](#context-settings)
+  * [上下文](#context)
+    * [上下文设置项](#上下文设置项)
       * [arch](#arch)
       * [bits](#bits)
       * [binary](#binary)
@@ -14,59 +14,59 @@ Table of Contents
       * [timeout](#timeout)
       * [update](#update)
 
-# Context
+# 上下文
 
-The `context` object is a global, thread-aware object which contains various settins used by `pwntools`.
+ `context` 对象是一个全局的、线程感知的对象，其中包含 `pwntools` 使用的多个设置项。 
 
-Generally at the top of an exploit, you'll find something like:
+通常在 exp 的顶部，你会发现如下内容： 
 
 ```py
 from pwn import *
 context.arch = 'amd64'
 ```
 
-Which informs pwntools that shellcode generated will be for `amd64`, and that the default word size is 64 bits
+它告诉 pwntools 生成的 shellcode 将用于 `amd64` 平台，并且默认字长为 64 位 。
 
-## Context Settings
+## 上下文设置项
 
 ### arch
 
-The target architecture.  Valid values are `"aarch64"`, `"arm"`, `"i386"`, `"amd64"`, etc.  The default is `"i386"`.
+目标架构。有效值为 `"aarch64"`,  `"arm"`,  `"i386"`,  `"amd64"`等。默认为 `"i386"`。
 
-The first time this is set, it automatically sets the default `context.bits` and `context.endian` to the most likely values.
+第一次设置此项时，它会同时自动设置 `context.bits` 和 `context.endian` 为最可能的值。 
 
 ### bits
 
-How many bits make up a word in the target binary, e.g. 32 or 64.
+目标二进制中由多少位组成一个字，例如 32 或 64。 
 
 ### binary
 
-Absorb settings from an ELF file.  For example, `context.binary='/bin/sh'`.
+从 ELF 文件中获取设置。 例如， `context.binary='/bin/sh'`。
 
 ### endian
 
-Set to `"big"` or `"little"` (the default) as needed.
+字节序，根据需要设置成 `"big"`（大端序）或者 `"little"`（默认，小端序）。 
 
 ### log_file
 
-File to send all of the logging output into.
+用于输出日志记录的文件。 
 
 ### log_level
 
-Verbosity of logs.  Valid values are integers (lower is more verbose), and string values like `"debug"`, `"info"`, and `"error"`.
+日志的详细程度。  有效值是整数（越小越详细），或字符串值如 `"debug"`、 `"info"` 和 `"error"`。
 
 ### sign
 
-Sets the default signed-ness of integer packing / unpacking.  Default is `"unsigned"`.
+设置整数打包/解包的默认符号类型。 默认为 `"unsigned"`. 
 
 ### terminal
 
-Preferred terminal program to open new windows with.  By default, uses `x-terminal-emulator` or `tmux`.
+用于打开新窗口的首选终端程序。  默认情况下，使用 `x-terminal-emulator`或者 `tmux`. 
 
 ### timeout
 
-Default timeout for tube operations.
+tube 操作的默认超时时间。 
 
 ### update
 
-Sets multiple values at once, e.g. `context.update(arch='mips', bits=64, endian='big')`.
+用于一次设置多个值，例如 `context.update(arch='mips', bits=64, endian='big')`。

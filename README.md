@@ -8,7 +8,7 @@
 
 [`Pwntools`](https://pwntools.com)是一个工具包，用于 CTF 中的漏洞利用尽可能轻松，并使 exp 尽可能易于阅读。 
 
-有些代码每个人都写了一百万次，每个人都有自己的方式。 Pwntools 旨在以半标准的方式提供所有这些，以便您可以停止复制粘贴相同的 `struct.unpack('>I', x)`代码，而去使用更易读的包装器，例如 `pack`或者 `p32`甚至 `p64(..., endian='big', sign=True)`. 
+有些代码每个人都写了一百万次，每个人都有自己的方式。 Pwntools 旨在以半标准的方式提供所有这些，以便你可以停止复制粘贴相同的`struct.unpack('>I', x)`代码，而去使用更易读的包装器，例如 `pack`或者 `p32`甚至 `p64(..., endian='big', sign=True)`. 
 
 除了围绕普通功能的便利包装器之外，它还提供了一组非常丰富的 `tubes`，这些`tubes`能够将您将执行的所有 IO 包装在一个统一的界面中。使从本地漏洞利用切换到远程漏洞利用或通过 SSH 进行的本地利用这样的操作只需要更改一行代码。 
 
@@ -24,25 +24,28 @@
     + Networking
     + Secure Shell
     + Serial Ports
-- [Utility](utility.md)
-    + Encoding and Hashing
-    + Packing / unpacking integers
-    + Pattern generation
-    + Safe evaluation
+- [实用函数](utility.md)
+  
+    + 编码和散列（哈希）
+    + 打包 / 解包整数
+    + 模式生成
+    + 安全评估
 - [Bytes vs. Strings](bytes.md)
     + Python2
     - Python3
         + Gotchas
-- [Context](context.md)
-    + Architecture
-    + Endianness
-    + Log verbosity
-    + Timeout
+- [上下文](context.md)
+  
+    + 架构
+    + 字节序
+    + 日志详细程度
+    + 超时
 - [ELFs](elf.md)
     + Reading and writing
     + Patching
     + Symbols
 - [Assembly](assembly.md)
+  
     + Assembling shellcode
     + Disassembling bytes
     + Shellcraft library

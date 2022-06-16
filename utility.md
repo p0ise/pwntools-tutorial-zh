@@ -1,21 +1,21 @@
-Table of Contents
+目录
 =================
 
-  * [Utility Functions](#utility-functions)
-    * [Packing and Unpacking Integers](#packing-and-unpacking-integers)
-    * [File I/O](#file-io)
-    * [Hashing and Encoding](#hashing-and-encoding)
+  * [实用函数](#实用函数)
+    * [打包和解包整数](#打包和解包整数)
+    * [文件 I/O](#文件 I/O)
+    * [散列（哈希）和编码](#散列（哈希）和编码)
         * [Base64](#base64)
-        * [Hashes](#hashes)
-        * [URL Encoding](#url-encoding)
-        * [Hex Encoding](#hex-encoding)
-        * [Bit Manipulation and Hex Dumping](#bit-manipulation-and-hex-dumping)
-        * [Hex Dumping](#hex-dumping)
-    * [Patten Generation](#patten-generation)
+        * [散列（哈希）](#散列（哈希）)
+        * [URL 编码](#URL 编码)
+        * [十六进制编码](#十六进制编码)
+        * [位操作和十六进制转储](#位操作和十六进制转储)
+        * [十六进制转储](#十六进制转储)
+    * [模式生成](#模式生成)
 
-# Utility Functions
+# 实用函数
 
-About half of Pwntools is utility functions so that you no longer need to copy paste things like this around:
+Pwntools 有一半左右的内容都是实用函数集合，让你能不再需要来回复制这样的代码：
 
 ```py
 import struct
@@ -30,17 +30,19 @@ def u(x):
 
 Instead, you just get nice little wrappers.  As an added bonus, everything is a bit more legible and easier to understand when reading someone else's exploit code.
 
+相反，你只需要使用这些漂亮简洁的封装。这还能使理解其他人写的漏洞利用代码更加容易。 
+
 ```py
 from pwn import *
 
 1234 == unpack(pack(1234))
 ```
 
-## Packing and Unpacking Integers
+## 打包和解包整数
 
-This is probably the most common thing you'll do, so it's at the top.  The main `pack` and `unpack` functions are aware of the global settings in [`context`](context.md) such as `endian`, `bits`, and `sign`.
+这可能是你会做的最常见的事情，所以它写在最上面。主要的`pack`和 `unpack`函数默认使用全局设置 [`context`](https://github.com/Gallopsled/pwntools-tutorial/blob/master/context.md)如 `endian`,  `bits`， 和 `sign`。
 
-You can also specify them explitily in the function call.
+你也可以在函数调用中明确指定它们。 
 
 ```py
 pack(1)
@@ -65,9 +67,9 @@ hex(u16('AA'))
 # '0x4141'
 ```
 
-## File I/O
+## 文件 I/O
 
-A single function call and it does what you want it to.
+一个函数调用，它会做你想做的事。 
 
 ```py
 from pwn import *
@@ -79,9 +81,9 @@ read('filename', 1)
 # 'd'
 ```
 
-## Hashing and Encoding
+## 散列（哈希）和编码
 
-Quick access to lots of functions to transform your data into whatever format you need it in.
+快捷地使用函数将你的数据转换为需要的任何格式。 
 
 #### Base64
 
@@ -89,7 +91,7 @@ Quick access to lots of functions to transform your data into whatever format yo
 'hello' == b64d(b64e('hello'))
 ```
 
-#### Hashes
+#### 散列（哈希）
 
 ```py
 md5sumhex('hello') == '5d41402abc4b2a76b9719d911017c592'
@@ -98,13 +100,13 @@ md5filehex('file') == '5d41402abc4b2a76b9719d911017c592'
 sha1sumhex('hello') == 'aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d'
 ```
 
-#### URL Encoding
+#### URL 编码
 
 ```py
 urlencode("Hello, World!") == '%48%65%6c%6c%6f%2c%20%57%6f%72%6c%64%21'
 ```
 
-#### Hex Encoding
+#### 十六进制编码
 
 ```py
 enhex('hello')
@@ -113,7 +115,7 @@ unhex('776f726c64')
 # 'world'
 ```
 
-#### Bit Manipulation and Hex Dumping
+#### 位操作和十六进制转储
 
 ```py
 bits(0b1000001) == bits('A')
@@ -122,7 +124,7 @@ unbits([0,1,0,1,0,1,0,1])
 # 'U'
 ```
 
-#### Hex Dumping
+#### 十六进制转储
 
 ```py
 print hexdump(read('/dev/urandom', 32))
@@ -131,18 +133,18 @@ print hexdump(read('/dev/urandom', 32))
 # 00000020
 ```
 
-## Pattern Generation
+## 模式生成
 
-Pattern generation is a very handy way to find offsets without needing to do math.
+模式生成是一种非常方便的查找偏移量的方法，无需进行数学运算。 
 
-Let's say we have a straight buffer overflow, and we generate a pattern and provide it to the target application.
+假设我们有一个直接的缓冲区溢出，我们生成一个模式并将其提供给目标应用程序。 
 
 ```py
 io = process(...)
 io.send(cyclic(512))
 ```
 
-In the core dump, we might see that the crash occurs at 0x61616178.  We can avoid needing to do any analysis of the crash frame by just punching that number back in and getting an offset.
+在核心转储中，我们可能会看到崩溃发生在 0x61616178。  我们可以避免需要对崩溃框架进行的任何分析，而只需通过那个数字来获得一个偏移量。 
 
 ```py
 cyclic_find(0x61616178)
