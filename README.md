@@ -1,22 +1,22 @@
-# Pwntools Tutorials
+# Pwntools 教程
 
-This repository contains some basic tutorials for getting started with pwntools (and pwntools).
+本仓库包含一些 pwntools 入门的基础教程。
 
-These tutorials do not make any effort to explain reverse engineering or exploitation primitives, but assume this knowledge.
+这些教程不会解释提到的逆向工程或漏洞利用的相关术语，而是假设你已经知晓这些知识。 
 
-# Introduction
+# 介绍
 
-[`Pwntools`](https://pwntools.com) is a grab-bag of tools to make exploitation during CTFs as painless as possible, and to make exploits as easy to read as possible.
+[`Pwntools`](https://pwntools.com)是一个工具包，用于 CTF 中的漏洞利用尽可能轻松，并使 exp 尽可能易于阅读。 
 
-There are bits of code everyone has written a million times, and everyone has their own way of doing it.  Pwntools aims to provide all of these in a semi-standard way, so that you can stop copy-pasting the same `struct.unpack('>I', x)` code around and instead use more slightly more legible wrappers like `pack` or `p32` or even `p64(..., endian='big', sign=True)`.
+有些代码每个人都写了一百万次，每个人都有自己的方式。 Pwntools 旨在以半标准的方式提供所有这些，以便您可以停止复制粘贴相同的 `struct.unpack('>I', x)`代码，而去使用更易读的包装器，例如 `pack`或者 `p32`甚至 `p64(..., endian='big', sign=True)`. 
 
-Aside from convenience wrappers around mundane functionality, it also provides a very rich set of `tubes` which wrap all of the IO that you'll ever perform in a single, unifying interface.  Switching from a local exploit to a remote exploit, or local exploit over SSH becomes a one-line change.
+除了围绕普通功能的便利包装器之外，它还提供了一组非常丰富的 `tubes`，这些`tubes`能够将您将执行的所有 IO 包装在一个统一的界面中。使从本地漏洞利用切换到远程漏洞利用或通过 SSH 进行的本地利用这样的操作只需要更改一行代码。 
 
-Last but not least, it also includes a wide array of exploitation assistance tools for intermediate-to-advanced use cases.  These include remote symbol resolution given a memory disclosure primitive (`MemLeak` and `DynELF`), ELF parsing and patching (`ELF`), and ROP gadget discovery and call-chain building (`ROP`).
+最后但并非最不重要的一点是，它还包括用于中高级用例的各种利用辅助工具。 这些包括给定内存泄露术语的远程符号解析（ `MemLeak`和 `DynELF`）、ELF 解析和修复，以及 ROP 片段发现和调用链构建。
 
-# Table of Contents
+# 目录
 
-- [Installing Pwntools](installing.md)
+- [安装 Pwntools](installing.md)
 - [Tubes](tubes.md)
     + Basic Tubes
     + Interactive Shells
