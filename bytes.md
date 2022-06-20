@@ -1,6 +1,6 @@
 # Bytes vs. Strings
 
-When Pwntools was originally (re-)written, about a decade ago, Python2 was the bee's knees.
+大约十年前，当 Pwntools 最初（重新）编写的时候，Python2 是非常出色的（the bee's knees）。 
 
 ```
 commit e692277db8533eaf62dd3d2072144ccf0f673b2e
@@ -10,23 +10,23 @@ Date:   Thu Jun 7 17:34:48 2012 +0200
     ALL THE THINGS
 ```
 
-Many exploits written over the years in Python assume that a `str` object has a 1:1 mapping with a `bytes` object, because this is How Things Work™️ on Python2.  In this section, we discuss some of the changes necessary to write exploits on Python3, versus their Python2 counterparts.
+多年来用 Python 编写的许多漏洞利用假设 `str` 对象和 `bytes` 对象是一一对应的，因为这就是 Python2 上字符串的运行原理 ™️ （How Things Work™️）。 在本节中，我们将讨论在 Python3 相对于 Python2 编写漏洞利用程序所需的一些更改。 
 
 ## Python2
 
-In Python2, the class `str` is literally the same class as `bytes`, and there is a 1:1 mapping.  There is never a need to call `encode` or `decode` on anything -- text is bytes, bytes are text.
+在 Python2 中， `str` 类和 `bytes` 类从字面上看是同一个类，并且存在 1:1 映射关系。 永远不需要在任何东西上调用 `encode` 或者 `decode` ——文本就是字节，字节就是文本。 
 
-This is incredibly convenient for writing exploits, since you can just write `"\x90\x90\x90\x90"` to get a NOP sled.  All of Pwntools tubes and data manipulation on Python2 support either strings or bytes.
+这对于编写漏洞利用非常方便，因为你只需编写 `"\x90\x90\x90\x90"` 就能得到一个 NOP Sled。 Python2 上的所有 Pwntools 管和数据操作都支持字符串或字节。
 
-Nobody ever used `unicode` objects to write exploits, so unicode-to-bytes transformations were extremely rare.
+从来没有人用过 `unicode` 对象来编写漏洞利用，因此 unicode 到字节的转换极为罕见。 
 
 ## Python3
 
-In Python3, the `unicode` class is effectively the `str` class.  This has a few immediate and obvious ramifications.
+在 Python3 中， `unicode` 类实际上是 `str` 类。这有一些直接和明显的后果。 
 
-At first glance, Python3 seems to make things harder, because `bytes` declares individual octets (as the name `bytes` implies) while `str` is used for any text-based representation of data.
+乍一看，Python3 似乎让事情变得更麻烦了，因为 `bytes` 声明独立的八位字节（用名称 `bytes` 表示），而 `str` 用于任何基于文本的数据表示。 
 
-Pwntools goes through great lengths to follow the "principle of least surprise" -- that is, things behave the way you expect them to.
+Pwntools 竭尽全力遵循“最不意外原则”——也就是说，事情会按照你期望的方式运行。 
 
 ```
 >>> r.send('❤️')
@@ -39,7 +39,7 @@ Pwntools goes through great lengths to follow the "principle of least surprise" 
     00000007
 ```
 
-However, sometimes things break down a bit.  Note here how 99f7e2 gets converted to c299c3b7c3a2.
+但是，有时也会有点问题。 请注意此处 99f7e2 被转换成了 c299c3b7c3a2。 
 
 ```
 >>> shellcode = "\x99\xf7\xe2"
@@ -48,9 +48,9 @@ However, sometimes things break down a bit.  Note here how 99f7e2 gets converted
 0000000e
 ```
 
-This happens because the text-string "\x99\xf7\xe2" is automatically converted to UTF-8 code points.  This is not likely what the author wanted.  
+发生这种情况是因为文本字符串“\x99\xf7\xe2”会自动转换为 UTF-8 编码点。这可能不是编写者想要的。 
 
-Consider instead, with a `b` prefix:
+相反，考虑使用 `b` 前缀： 
 
 ```
 >>> shellcode = b"\x99\xf7\xe2"
@@ -59,13 +59,13 @@ Consider instead, with a `b` prefix:
 0000000b
 ```
 
-Much better!
+好多了！
 
-Generally, the fix for things in Pwntools on Python3 is to make sure all of your strings have a `b` prefix.  This resolves ambiguities and makes everything straightforward.
+总的来说，要在 Pwntools 中修复这种问题，请保证你所有的字符串都有一个 `b` 前缀。这解决了歧义并使一切变得简单。
 
-### Gotchas
+### 陷阱（Gotchas）
 
-There is one "gotcha" worth mentioning about Python3 `bytes` objects.  When iterating over them, you get integers, instead of `bytes` objects.  This is a huge diversion from Python2, and a major annoyance.
+这里有一个关于 Python3 `bytes` 对象的“陷阱”（"gotcha"）值得一提。当迭代它们时，你会得到整数，而不是 `bytes` 对象。这是 Python3 与 Python2 的巨大不同，也是一个主要的烦恼。
 
 ```
 >>> x=b'123'
@@ -77,7 +77,7 @@ There is one "gotcha" worth mentioning about Python3 `bytes` objects.  When iter
 51
 ```
 
-To work around this, we suggest using slices, which produce length-1 `bytes` objects.
+为了解决这个问题，我们建议使用长度为 1 的切片来生成 `bytes` 对象。 
 
 ```
 >>> for i in range(len(x)):

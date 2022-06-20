@@ -18,7 +18,7 @@
 
 - [安装 Pwntools](installing.md)
 - [管（Tubes）](tubes.md)
-    
+  
     + 基本管（Tubes）
     + 交互式Shell
     + 进程
@@ -32,9 +32,10 @@
     + 模式生成
     + 安全评估
 - [Bytes vs. Strings](bytes.md)
+    
     + Python2
     - Python3
-        + Gotchas
+        + 陷阱（Gotchas）
 - [上下文](context.md)
   
     + 架构
