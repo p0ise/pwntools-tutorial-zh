@@ -1,13 +1,13 @@
-Table of Contents
+目录
 =================
 
-  * [Installing Pwntools](#installing-pwntools)
-    * [Verifying Installation](#verifying-installation)
-    * [Foreign Architectures](#foreign-architectures)
+  * [安装 Pwntools](#安装-Pwntools)
+    * [验证安装](#验证安装)
+    * [其他架构](#其他架构)
 
-# Installing Pwntools
+# 安装 Pwntools
 
-This process is as straightforward as it can be.  Ubuntu 18.04 and 20.04 are the only "officially supported" platforms, in that they're the only platforms we do automated testing on.
+这个过程尽可能简单。Ubuntu 18.04 和 20.04 是唯一的“官方支持”平台，因为它们是我们进行自动化测试的唯一平台。 
 
 ```sh
 $ apt-get update
@@ -16,17 +16,17 @@ $ python3 -m pip install --upgrade pip
 $ python3 -m pip install --upgrade pwntools
 ```
 
-## Verifying Installation
+## 验证安装
 
-Everything should be A-OK if the following command succeeds:
+如果以下命令成功，一切都应该是正常的（A-OK）： 
 
 ```sh
 $ python -c 'from pwn import *'
 ```
 
-## Foreign Architectures
+## 其他架构
 
-If you want to assemble or disassemble code for foreign architectures, you need an appropriate `binutils` installation.  For Ubuntu and Mac OS X users, the [installation instructions][binutils] are available on docs.pwntools.com.
+如果你想为其他架构汇编或反汇编代码，你需要一个合适的 `binutils`安装。对于 Ubuntu 和 Mac OS X 用户， [安装说明 ](https://pwntools.readthedocs.org/en/latest/install/binutils.html)可在 docs.pwntools.com 上获得。 
 
 ```sh
 $ apt-get install binutils-*

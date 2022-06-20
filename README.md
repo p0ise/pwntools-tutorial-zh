@@ -46,12 +46,12 @@
     + 读写
     + 修补（Patching）
     + 符号
-- [Assembly](assembly.md)
+- [汇编](assembly.md)
   
-    + Assembling shellcode
-    + Disassembling bytes
-    + Shellcraft library
-    + Constants
+    + 汇编 shellcode
+    + 反汇编字节码
+    + Shellcraft 库
+    + 常量
 - [Debugging](debugging.md)
     + Debugging local processes
     + Breaking at the entry point

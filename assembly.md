@@ -1,26 +1,26 @@
-Table of Contents
+目录
 =================
 
-  * [Assembly](#assembly)
-    * [Basic Assembly](#basic-assembly)
-    * [Canned assembly (shellcraft)](#canned-assembly-shellcraft)
-    * [Command-line Tools](#command-line-tools)
+  * [汇编](#汇编)
+    * [基础汇编](#基础汇编)
+    * [封装好的汇编（`shellcraft`）](#封装好的汇编shellcraft)
+    * [命令行工具](#命令行工具)
       * [asm ](#asm)
       * [disasm ](#disasm)
       * [shellcraft ](#shellcraft)
-    * [Foreign Architectures](#foreign-architectures)
-      * [Canned Assembly](#canned-assembly)
-      * [Command-line Tools](#command-line-tools-1)
+    * [其他架构](#其他架构)
+      * [封装好的汇编](#封装好的汇编)
+      * [命令行工具](#命令行工具-1)
 
-# Assembly
+# 汇编
 
-Pwntools makes it very easy to perform assembly in almost any architecture, and comes with a wide variety of canned-but-customizable shellcode ready to go out-of-the-box.
+Pwntools 使得在几乎任何架构中执行汇编变得非常容易，并附带了各种经过封装但可定制的 shellcode，可以开箱即用。 
 
-In the [`walkthrough`](walkthrough) directory, there are several longer shellcode tutorials.  This page gives you the basics.
+在里面 [`walkthrough`](https://github.com/Gallopsled/pwntools-tutorial/blob/master/walkthrough)目录，有几个较长的shellcode教程。  此页面为你提供基础知识。 
 
-## Basic Assembly
+## 基础汇编
 
-The most basic example, is to convert assembly into shellcode.
+最基础的例子，就是将汇编转换成 shellcode。 
 
 ```py
 from pwn import *
@@ -32,9 +32,9 @@ print enhex(asm('xor edi, edi'))
 # 31ff
 ```
 
-## Canned assembly (`shellcraft`)
+## 封装好的汇编（`shellcraft`）
 
-The `shellcraft` module gives you pre-canned assembly.  It is generally customizable.  The easiest way to find out which `shellcraft` templates exist is to look at the [documentation on RTD](https://pwntools.readthedocs.org/en/latest/shellcraft.html).
+`shellcraft` 模块为您提供预封装好的汇编指令。它通常是可定制的。找出哪个`shellcraft`模板存在的最简单的方法就是看 [RTD上的文档 ](https://pwntools.readthedocs.org/en/latest/shellcraft.html)。
 
 ```py
 from pwn import *
@@ -66,9 +66,9 @@ sh()
 6a68682f2f2f73682f62696e6a0b5889e331c999cd80
 ```
 
-## Command-line Tools
+## 命令行工具
 
-There are three command-line tools for interacting with assembly:
+这有三个用于与汇编指令交互的命令行工具： 
 
 - `asm`
 - `disasm`
@@ -76,21 +76,21 @@ There are three command-line tools for interacting with assembly:
 
 ### `asm`
 
-The asm tool does what it says on the tin.  It provides several options for formatting the output.  When the output is a terminal, it defaults to hex-encoded.
+asm 工具实现的功能正如它的名称那样（does what it says on the tin）。它提供了几个用于格式化输出的选项。当输出为终端时，默认为十六进制编码。
 
 ```
 $ asm nop
 90
 ```
 
-When the output is anything else, it writes the raw data.
+当输出是其他内容时，它会写入原始数据。 
 
 ```
 $ asm nop | xxd
 0000000: 90                                       .
 ```
 
-It also takes data on stdin if no instructions are provided on the command line.
+如果命令行上没有提供指令，它会从标准输入上获取数据。 
 
 ```
 $ echo 'push ebx; pop edi' | asm
@@ -98,6 +98,8 @@ $ echo 'push ebx; pop edi' | asm
 ```
 
 Finally, it supports a few different options for specifying the output format, via the `--format` option.  Supported arguments are `raw`, `hex`, `string`, and `elf`.
+
+最后，它支持几个不同的选项来指定输出格式，通过 `--format` 选项。支持的参数是 `raw`、`hex`、`string` 和 `elf` 。
 
 ```
 $ asm --format=elf 'int3' > ./int3
@@ -107,7 +109,7 @@ Trace/breakpoint trap (core dumped)
 
 ### `disasm`
 
-Disasm is the opposite of `asm`.
+Disasm 是 `asm` 的逆过程。
 
 ```
 $ disasm cd80
@@ -118,16 +120,16 @@ $ asm nop | disasm
 
 ### `shellcraft`
 
-The `shellcraft` command is the command-line interface to the internal `shellcraft` module.  On the command-line, the full context must be specified, in the order of `arch.os.template`.
+ `shellcraft` 命令是内部 `shellcraft` 模块的命令行接口。在命令行上，必须按 `arch.os.template` 的顺序指定完整的上下文。
 
 ```
 $ shellcraft i386.linux.sh
 6a68682f2f2f73682f62696e6a0b5889e331c999cd80
 ```
 
-## Foreign Architectures
+## 其他架构
 
-Assembling for a foreign architecture requires that you have an appropriate version of `binutils` installed.  You should see [installing.md](installing.md) for more information on this.  The only change that is necessary is to set the architecture in the global context variable.  You can see more information about `context` in [context.md](context.md).
+为其他架构汇编需要你安装一个合适版本的 `binutils`。您应该查看 [installing.md ](https://github.com/Gallopsled/pwntools-tutorial/blob/master/installing.md)以获取更多信息。唯一需要的更改是在全局上下文变量中设置架构。你可以在 [context.md ](https://github.com/Gallopsled/pwntools-tutorial/blob/master/context.md)中看到更多关于 `context` 的内容。 
 
 ```py
 from pwn import *
@@ -141,9 +143,9 @@ print enhex(asm('mov r0, r1'))
 # 0100a0e1
 ```
 
-### Canned Assembly
+### 封装好的汇编
 
-The `shellcraft` module automatically switches to the appropriate architecture.
+`shellcraft` 模块会自动切换到适当的架构。 
 
 ```py
 from pwn import *
@@ -163,9 +165,9 @@ bin_sh: .asciz "/bin/sh"
 08008fe20020a0e30210a0e10b0000ef2f62696e2f736800
 ```
 
-### Command-line Tools
+### 命令行工具
 
-You can also use the command line to assemble foreign-arch shellcode, by using the `--context` command-line option.
+你也可以通过 `--context` 命令行选项来使用命令行组装其他架构的 shellcode。 
 
 ```
 $ asm --context=arm 'mov r0, r1'
