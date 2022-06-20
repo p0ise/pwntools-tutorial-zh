@@ -32,7 +32,7 @@
     + 模式生成
     + 安全评估
 - [Bytes vs. Strings](bytes.md)
-    
+  
     + Python2
     - Python3
         + 陷阱（Gotchas）
@@ -43,9 +43,9 @@
     + 日志详细程度
     + 超时
 - [ELFs](elf.md)
-    + Reading and writing
-    + Patching
-    + Symbols
+    + 读写
+    + 修补（Patching）
+    + 符号
 - [Assembly](assembly.md)
   
     + Assembling shellcode

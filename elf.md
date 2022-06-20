@@ -1,23 +1,23 @@
-Table of Contents
+目录
 =================
 
   * [ELFs](#elfs)
-    * [Loading ELF files](#loading-elf-files)
-    * [Using Symbols](#using-symbols)
-    * [Changing the Base Address](#changing-the-base-address)
-    * [Reading ELF Files](#reading-elf-files)
-    * [Patching ELF Files](#patching-elf-files)
-    * [Searching ELF Files](#searching-elf-files)
-    * [Building ELF Files](#building-elf-files)
-    * [Running and Debugging ELF Files](#running-and-debugging-elf-files)
+    * [加载 ELF 文件](#加载-ELF-文件)
+    * [使用符号](#使用符号)
+    * [更改基地址](#更改基地址)
+    * [读取 ELF 文件](#读取-ELF-文件)
+    * [修补 ELF 文件（Patching）](#修补-ELF-文件Patching)
+    * [搜索 ELF 文件](#搜索-ELF-文件)
+    * [构建 ELF 文件 ](#构建-ELF-文件 )
+    * [运行和调试 ELF 文件 ](#运行和调试-ELF-文件 )
 
 # ELFs
 
-Pwntools makes interacting with ELF files relatively straightforward, via the `ELF` class.  You can find the full documentation on [RTD](https://pwntools.readthedocs.org/en/latest/elf.html).
+Pwntools 通过 `ELF` 类与 ELF 文件相对直接地进行交互。 你可以在 [RTD](https://pwntools.readthedocs.org/en/latest/elf.html) 上找到完整的文档。 
 
-## Loading ELF files
+## 加载 ELF 文件
 
-ELF files are loaded by path.  Upon being loaded, some security-relevant attributes about the file are printed.
+ELF 文件通过路径加载。加载完成后，会打印一些有关文件的安全相关属性。 
 
 ```py
 from pwn import *
@@ -32,16 +32,16 @@ e = ELF('/bin/bash')
 #     FORTIFY:  Enabled
 ```
 
-## Using Symbols
+## 使用符号 
 
-ELF files have a few different sets of symbols available, each contained in a dictionary of `{name: data}`.
+ELF 文件有几组不同的可用符号，每一个都包含在一个`{name: data}`字典中。
 
-- `ELF.symbols` lists all known symbols, including those below.  Preference is given the PLT entries over GOT entries.
-- `ELF.got` only contains GOT entries
-- `ELF.plt` only contains PLT entries
-- `ELF.functions` only contains functions (requires DWARF symbols)
+- `ELF.symbols` 列出所有已知符号，包括下面这些符号。 其中，PLT 条目优先于 GOT 条目。 
+- `ELF.got` 仅包含 GOT 条目。
+- `ELF.plt` 仅包含 PLT 条目。
+- `ELF.functions` 仅包含函数（需要 DWARF 符号）。
 
-This is very useful in keeping exploits robust, by removing the need to hard-code addresses.
+这能避免对地址进行硬编码，从而有利于保持 exp 的鲁棒性。 
 
 ```py
 from pwn import *
@@ -55,7 +55,7 @@ print "%#x -> plt.execve" % e.plt['execve']
 print "%#x -> list_all_jobs" % e.functions['list_all_jobs'].address
 ```
 
-This would print something like the following:
+这将打印如下内容： 
 
 ```
 0x4ba738 -> license
@@ -65,9 +65,9 @@ This would print something like the following:
 0x446420 -> list_all_jobs
 ```
 
-## Changing the Base Address
+## 更改基地址
 
-Changing the base address of the ELF file (e.g. to adjust for ASLR) is very straightforward.  Let's change the base address of `bash`, and see all of the symbols change.
+更改 ELF 文件的基地址（例如调整 ASLR）非常简单。  让我们改变 `bash` 的基地址，并查看所有符号的变化。
 
 ```py
 from pwn import *
@@ -86,7 +86,7 @@ print "%#x -> entry point" % e.entry
 print "%#x -> execve" % e.symbols['execve']
 ```
 
-This should print something like:
+这应该打印如下内容： 
 
 ```
 0x400000 -> base address
@@ -98,9 +98,9 @@ This should print something like:
 0x1235db60 -> execve
 ```
 
-## Reading ELF Files
+## 读取 ELF 文件 
 
-We can directly interact with the ELF as if it were loaded into memory, using `read`, `write`, and functions named identically to that in the `packing` module.  Additionally, you can see the disassembly via the `disasm` method.
+我们可以像被加载到内存中一样直接与 ELF 交互，使用 `read`、`write`和在 `packing` 模块命名的其他函数。 此外，你可以通过 `disasm`方法查看反汇编。
 
 ```py
 from pwn import *
@@ -117,7 +117,7 @@ print e.read(license, 14)
 print e.disasm(e.symbols['main'], 12)
 ```
 
-This prints something like:
+这会打印出类似这样的内容： 
 
 ```
 '\x7fELF'
@@ -128,9 +128,9 @@ License GPLv3+
   41eab4:       41 55                   push   r13
 ```
 
-## Patching ELF Files
+## 修补 ELF 文件（Patching）
 
-Patching ELF files is just as simple.
+修补（Patching） ELF 文件同样简单。 
 
 ```py
 from pwn import *
@@ -151,7 +151,7 @@ e.write(license, 'Hello, world!\n\x00')
 e.save('./bash-modified')
 ```
 
-We can then run our modified version of bash.
+然后我们可以运行修改后的 bash。 
 
 ```
 $ chmod +x ./bash-modified
@@ -165,10 +165,9 @@ No chdir for you!
 ./bash-modified: line 0: cd: No chdir for you!: No such file or directory
 ```
 
-## Searching ELF Files
+## 搜索 ELF 文件 
 
-Every once in a while, you just need to find some byte sequence.  The most common example is searching for e.g. `"/bin/sh\x00"` for an `execve` call.
-The `search` method returns an iterator, allowing you to either take the first result, or keep searching if you need something special (e.g. no bad characters in the address).  You can optionally pass a `writable` argument to `search`, indicating it should only return addresses in writable segments.
+你经常需要查找一些字节序列。最常见的例子是搜索例如 `"/bin/sh\x00"`用来调用 `execve`。 `search` 方法返回一个迭代器，允许你获取第一个结果，或者继续搜索你需要的一些特殊的东西（例如地址中没有坏字符）。你可以选择向`search` 传递 `writable` 参数，来指明它应该只返回可写段中的地址。
 
 ```py
 from pwn import *
@@ -179,16 +178,16 @@ for address in e.search('/bin/sh\x00'):
     print hex(address)
 ```
 
-The above example prints something like:
+上面的示例打印如下内容： 
 
 ```
 0x420b82
 0x420c5e
 ```
 
-## Building ELF Files
+## 构建 ELF 文件 
 
-ELF files can be created from scratch relatively easy.  All of these functions are context-aware.  The relevant functions are `from_bytes` and `from_assembly`.  Each returns an `ELF` object, which can easily be saved to file.
+ELF 文件可以相对容易地从头开始创建。所有功能都是上下文感知的。相关的功能有 `from_bytes`和 `from_assembly`。每个返回一个 `ELF`对象，可以很容易地保存到文件中。 
 
 ```
 from pwn import *
@@ -198,9 +197,9 @@ ELF.from_assembly('int3').save('int3-2')
 ELF.from_assembly('nop', arch='powerpc').save('powerpc-nop')
 ```
 
-## Running and Debugging ELF Files
+## 运行和调试 ELF 文件 
 
-If you have an `ELF` object, you can run or debug it directly.  The following are equivalent:
+如果你有一个 `ELF`对象，你可以直接运行或调试它。 以下是等价的：
 
 ```py
 >>> io = elf.process()
@@ -208,7 +207,7 @@ If you have an `ELF` object, you can run or debug it directly.  The following ar
 >>> io = process(elf.path)
 ```
 
-Similarly, you can launch a debugger trivially attached to your ELF.  This is super useful when testing shellcode, without the need for a C wrapper to load and debug it.
+同样，你可以启动一个调试器，来简单地附加到你的 ELF 上。而不需要 C 包装器来加载和调试它，这在测试 shellcode 时非常有用。
 
 ```py
 >>> io = elf.debug()
