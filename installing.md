@@ -3,7 +3,7 @@
 
   * [安装 Pwntools](#安装-Pwntools)
     * [验证安装](#验证安装)
-    * [其他架构](#其他架构)
+    * [外部架构](#外部架构)
 
 # 安装 Pwntools
 
@@ -24,9 +24,9 @@ $ python3 -m pip install --upgrade pwntools
 $ python -c 'from pwn import *'
 ```
 
-## 其他架构
+## 外部架构
 
-如果你想为其他架构汇编或反汇编代码，你需要一个合适的 `binutils`安装。对于 Ubuntu 和 Mac OS X 用户， [安装说明 ](https://pwntools.readthedocs.org/en/latest/install/binutils.html)可在 docs.pwntools.com 上获得。 
+如果你想为外部架构汇编或反汇编代码，你需要一个合适的 `binutils`安装。对于 Ubuntu 和 Mac OS X 用户， [安装说明 ](https://pwntools.readthedocs.org/en/latest/install/binutils.html)可在 docs.pwntools.com 上获得。 
 
 ```sh
 $ apt-get install binutils-*

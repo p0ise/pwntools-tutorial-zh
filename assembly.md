@@ -8,7 +8,7 @@
       * [asm ](#asm)
       * [disasm ](#disasm)
       * [shellcraft ](#shellcraft)
-    * [其他架构](#其他架构)
+    * [外部架构](#外部架构)
       * [封装好的汇编](#封装好的汇编)
       * [命令行工具](#命令行工具-1)
 
@@ -127,9 +127,9 @@ $ shellcraft i386.linux.sh
 6a68682f2f2f73682f62696e6a0b5889e331c999cd80
 ```
 
-## 其他架构
+## 外部架构
 
-为其他架构汇编需要你安装一个合适版本的 `binutils`。您应该查看 [installing.md ](https://github.com/Gallopsled/pwntools-tutorial/blob/master/installing.md)以获取更多信息。唯一需要的更改是在全局上下文变量中设置架构。你可以在 [context.md ](https://github.com/Gallopsled/pwntools-tutorial/blob/master/context.md)中看到更多关于 `context` 的内容。 
+为外部架构汇编需要你安装一个合适版本的 `binutils`。您应该查看 [installing.md ](https://github.com/Gallopsled/pwntools-tutorial/blob/master/installing.md)以获取更多信息。唯一需要的更改是在全局上下文变量中设置架构。你可以在 [context.md ](https://github.com/Gallopsled/pwntools-tutorial/blob/master/context.md)中看到更多关于 `context` 的内容。 
 
 ```py
 from pwn import *
@@ -167,7 +167,7 @@ bin_sh: .asciz "/bin/sh"
 
 ### 命令行工具
 
-你也可以通过 `--context` 命令行选项来使用命令行组装其他架构的 shellcode。 
+你也可以通过 `--context` 命令行选项来使用命令行组装外部架构的 shellcode。 
 
 ```
 $ asm --context=arm 'mov r0, r1'

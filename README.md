@@ -52,10 +52,11 @@
     + 反汇编字节码
     + Shellcraft 库
     + 常量
-- [Debugging](debugging.md)
-    + Debugging local processes
-    + Breaking at the entry point
-    + Debugging shellcode
+- [调试](debugging.md)
+    
+    + 调试本地进程
+    + 在入口点设置断点
+    + 调试shellcode
 - [ROP](rop.md)
     + Dumping gadgets
     + Searching for gadgets

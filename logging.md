@@ -3,10 +3,10 @@ Table of Contents
 
   * [Logging](#logging)
   	* [Functions](#functions)
-    * [Command Line](#command-line)
-    * [Context](#context)
-    * [Tubes](#tubes)
-    * [Scoped](#scoped)
+        * [Command Line](#command-line)
+        * [Context](#context)
+        * [Tubes](#tubes)
+        * [Scoped](#scoped)
 
 # Logging
 
